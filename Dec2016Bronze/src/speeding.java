@@ -1,6 +1,5 @@
 import java.util.*;
 import java.io.*;
-
 public class speeding {
     static BufferedReader br;
     static PrintWriter pw;
