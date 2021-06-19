@@ -1,30 +1,12 @@
 package Mar2014Bronze;
-/*
-ID: nathank3
-LANG: JAVA
-TASK: cowart
-*/
 import java.io.*;
 public class cowart {
-    static BufferedReader br;
-    static PrintWriter pw;
     static char[][] c;
     static boolean[][] b;
-    public static void main(String[] args) {
-        try {
-            br = new BufferedReader(new FileReader(new File("cowart.in")));
-            pw = new PrintWriter(new File("cowart.out"));
-            init();
-            pw.println(solve());
-            pw.close();
-            br.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private static void init() throws IOException {
-    	int n = Integer.parseInt(br.readLine());
+    public static void main(String[] args) throws IOException {
+    	BufferedReader br = new BufferedReader(new FileReader(new File("cowart.in")));
+        PrintWriter pw = new PrintWriter(new File("cowart.out"));
+        int n = Integer.parseInt(br.readLine());
     	c = new char[n][n];
     	b = new boolean[n][n];
     	for(int i = 0; i < n; i++) {
@@ -32,9 +14,7 @@ public class cowart {
     		for(int j = 0; j < n; j++)
     			c[i][j] = s.charAt(j);
     	}
-    }
-    private static String solve() {
-        int human = 0;
+    	int human = 0;
         int cow = 0;
         String s = "RGB";
         for(int i = 0; i < 3; i++) {
@@ -61,7 +41,9 @@ public class cowart {
         		}
         	}
         }
-    	return human + " " + cow;
+    	pw.println(human + " " + cow);
+        br.close();
+        pw.close();
     }
     public static int recursion (int x, int y, char t) {
 		if(x < 0 || y < 0 || x >= c.length || y >= c.length)

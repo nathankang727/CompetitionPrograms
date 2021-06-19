@@ -1,56 +1,37 @@
 package Jan2019Bronze;
-/*
-ID: nathank3
-LANG: JAVA
-TASK: shell
-*/
 import java.util.*;
 import java.io.*;
 public class shell {
-    static BufferedReader br;
-    static PrintWriter pw;
-    static int n;
-    static int[][] abg;
-    public static void main(String[] args) {
-        try {
-            br = new BufferedReader(new FileReader(new File("shell.in")));
-            pw = new PrintWriter(new File("shell.out"));
-            init();
-            pw.println(solve());
-            pw.close();
-            br.close();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private static void init() throws IOException {
-    	n = Integer.parseInt(br.readLine());
-    	abg = new int[n][3];
+    public static void main(String[] args) throws IOException {
+    	BufferedReader br = new BufferedReader(new FileReader(new File("shell.in")));
+    	PrintWriter pw = new PrintWriter(new FileWriter(new File("shell.out")));
+    	int n = Integer.parseInt(br.readLine());
+    	int[][] swap = new int[n][2];
+    	int[] guess = new int[n];
     	for(int i = 0; i < n; i++) {
     		StringTokenizer st = new StringTokenizer(br.readLine());
-    		abg[i][0] = Integer.parseInt(st.nextToken());
-    		abg[i][1] = Integer.parseInt(st.nextToken());
-    		abg[i][2] = Integer.parseInt(st.nextToken());
+    		swap[i][0] = Integer.parseInt(st.nextToken());
+    		swap[i][1] = Integer.parseInt(st.nextToken());
+    		guess[i] = Integer.parseInt(st.nextToken());
     	}
-    }
-    private static String solve() {
     	int max = 0;
-    	boolean[] b = new boolean[3];
-    	for(int i = 0; i < 3; i++) {
-    		b = new boolean[3];
+    	for(int i = 1; i <= 3; i++) {
+    		int cnt = 0;
+    		boolean[] b = new boolean[4];
     		b[i] = true;
-    		int count = 0;
     		for(int j = 0; j < n; j++) {
-    			boolean temp = b[abg[j][0] - 1];
-    			b[abg[j][0] - 1] = b[abg[j][1] - 1];
-    			b[abg[j][1] - 1] = temp;
-    			if(b[abg[j][2] - 1])
-    				++count;
+    			if(b[swap[j][0]] || b[swap[j][1]]) {
+    				b[swap[j][0]] = !b[swap[j][0]];
+    				b[swap[j][1]] = !b[swap[j][1]];
+    			}
+    			if(b[guess[j]])
+    				++cnt;
     		}
-    		if(count > max)
-    			max = count;
+    		if(max < cnt)
+    			max = cnt;
     	}
-        return String.valueOf(max);
+    	pw.println(max);
+    	br.close();
+    	pw.close();
     }
 }
